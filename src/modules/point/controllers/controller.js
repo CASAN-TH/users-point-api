@@ -1,12 +1,12 @@
 'use strict';
 var mongoose = require('mongoose'),
-    model = require('../models/model'), 
+    model = require('../models/model'),
     Point = mongoose.model('Point'),
     errorHandler = require('../../core/controllers/errors.server.controller'),
     _ = require('lodash');
-    
+
 exports.getList = function (req, res) {
-        Point.find(function (err, datas) {
+    Point.find(function (err, datas) {
         if (err) {
             return res.status(400).send({
                 status: 400,
@@ -22,9 +22,9 @@ exports.getList = function (req, res) {
 };
 
 exports.create = function (req, res) {
-        var newPoint = new Point(req.body);
-        newPoint.createby = req.user;
-        newPoint.save(function (err, data) {
+    var newPoint = new Point(req.body);
+    newPoint.createby = req.user;
+    newPoint.save(function (err, data) {
         if (err) {
             return res.status(400).send({
                 status: 400,
@@ -102,3 +102,25 @@ exports.delete = function (req, res) {
         };
     });
 };
+
+exports.findpointByID = function (req, res, next) {
+    var user_id = req.body.user_id
+    Point.find({user_id: user_id},function (err, datas) {
+        if (err) {
+            return res.status(400).send({
+                status: 400,
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            req.result = datas
+            next()
+        }
+    })
+};
+
+exports.returnData = function (req, res) {
+    res.jsonp({
+        status: 200,
+        data: req.result
+    });
+}

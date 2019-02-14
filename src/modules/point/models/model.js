@@ -9,10 +9,12 @@ var PointSchema = new Schema({
         type: String
     },
     total:{
-        type: Number
+        type: Number,
+        default: 0
     },
     used:{
-        type: Number
+        type: Number,
+        default: 0
     },
     created: {
         type: Date,
