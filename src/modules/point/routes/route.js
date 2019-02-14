@@ -13,5 +13,11 @@ module.exports = function (app) {
         .put(controller.update)
         .delete(controller.delete);
 
+    app.route('/api/points-user')
+        .post(
+            controller.findpointByID,
+            controller.returnData
+        )
+
     app.param('pointId', controller.getByID);
 }
