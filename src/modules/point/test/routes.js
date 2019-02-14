@@ -196,7 +196,7 @@ describe('Point CRUD routes tests', function () {
             });
 
     });
-
+ 
     it('should be point delete not use token', function (done) {
 
         request(app)
