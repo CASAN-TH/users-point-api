@@ -16,7 +16,7 @@ describe('Point CRUD routes tests', function () {
 
     before(function (done) {
         mockup = {
-            name: 'name'
+            user_id: 'name'
         };
         credentials = {
             username: 'username',
@@ -68,7 +68,7 @@ describe('Point CRUD routes tests', function () {
                         }
                         var resp = res.body;
                         assert.equal(resp.status, 200);
-                        assert.equal(resp.data.name, mockup.name);
+                        assert.equal(resp.data.user_id, mockup.user_id);
                         done();
                     });
             });
@@ -86,7 +86,7 @@ describe('Point CRUD routes tests', function () {
                     return done(err);
                 }
                 var resp = res.body;
-                assert.equal(resp.data.name, mockup.name);
+                assert.equal(resp.data.user_id, mockup.user_id);
                 done();
             });
     });
@@ -104,7 +104,7 @@ describe('Point CRUD routes tests', function () {
                 }
                 var resp = res.body;
                 var update = {
-                    name: 'name update'
+                    user_id: 'name update'
                 }
                 request(app)
                     .put('/api/points/' + resp.data._id)
@@ -116,7 +116,7 @@ describe('Point CRUD routes tests', function () {
                             return done(err);
                         }
                         var resp = res.body;
-                        assert.equal(resp.data.name, update.name);
+                        assert.equal(resp.data.user_id, update.user_id);
                         done();
                     });
             });
