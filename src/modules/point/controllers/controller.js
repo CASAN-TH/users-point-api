@@ -174,7 +174,7 @@ exports.findTotalById = function (req, res, next) {
 
 exports.plusTotal = function (req, res, next) {
     var user_id = req.body.user_id;
-    var total = req.total + 1;
+    var total = req.total + 1 + req.body.bonus;
     Point.findOneAndUpdate({ user_id: user_id }, { $set: { total: total } }, { new: true }, function (err, datas) {
         if (err) {
             return res.status(400).send({
