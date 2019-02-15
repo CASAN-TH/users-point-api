@@ -265,6 +265,50 @@ describe('Point CRUD routes tests', function () {
 
     });
 
+    it('This should can minus Used points', function (done) {
+
+        var user1 = new Point({
+            user_id: "CCCCCC",
+            total: 10,
+            used: 42
+        })
+
+        var user2 = new Point({
+            user_id: "EEEEEE",
+            total: 5,
+            used: 10
+        })
+
+        user1.save(function (err, u1) {
+            if (err) {
+                return done(err);
+            }
+            user2.save(function (err, u2) {
+                if (err) {
+                    return done(err);
+                }
+                var id = {
+                    user_id: u2.user_id
+                }
+                request(app)
+                    .post('/api/points-remove-used')
+                    .send(id)
+                    .expect(200)
+                    .end((err, res) => {
+                        if (err) {
+                            return done(err);
+                        }
+                        var resp = res.body;
+                        // console.log(resp)
+                        assert.equal(resp.data.user_id, u2.user_id)
+                        assert.equal(resp.data.used, user2.used + 1)
+                        done();
+                    });
+            })
+        })
+
+    });
+
     afterEach(function (done) {
         Point.remove().exec(done);
     });
