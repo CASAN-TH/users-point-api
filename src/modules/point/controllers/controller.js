@@ -104,7 +104,7 @@ exports.delete = function (req, res) {
 };
 
 exports.findpointByID = function (req, res, next) {
-    var user_id = req.body.user_id
+    var user_id = req.body.user_id;
     Point.find({ user_id: user_id }, function (err, datas) {
         if (err) {
             return res.status(400).send({
@@ -112,7 +112,7 @@ exports.findpointByID = function (req, res, next) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            req.result = datas
+            req.result = datas;
             next();
         }
     })
@@ -126,7 +126,7 @@ exports.returnData = function (req, res) {
 };
 
 exports.findUsedById = function (req, res, next) {
-    var user_id = req.body.user_id
+    var user_id = req.body.user_id;
     Point.find({ user_id: user_id }, function (err, datas) {
         if (err) {
             return res.status(400).send({
@@ -134,15 +134,15 @@ exports.findUsedById = function (req, res, next) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            req.used = datas[0].used
+            req.used = datas[0].used;
             next();
         }
     })
 };
 
 exports.plusUsed = function (req, res, next) {
-    var user_id = req.body.user_id
-    var used = req.used + 1
+    var user_id = req.body.user_id;
+    var used = req.used + 1;
     Point.findOneAndUpdate({ user_id: user_id }, { $set: { used: used } }, { new: true }, function (err, datas) {
         if (err) {
             return res.status(400).send({
@@ -150,7 +150,7 @@ exports.plusUsed = function (req, res, next) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            req.result = datas
+            req.result = datas;
             // console.log(datas)
             next();
         }
@@ -158,7 +158,7 @@ exports.plusUsed = function (req, res, next) {
 };
 
 exports.findTotalById = function (req, res, next) {
-    var user_id = req.body.user_id
+    var user_id = req.body.user_id;
     Point.find({ user_id: user_id }, function (err, datas) {
         if (err) {
             return res.status(400).send({
@@ -166,15 +166,15 @@ exports.findTotalById = function (req, res, next) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            req.total = datas[0].total
+            req.total = datas[0].total;
             next();
         }
     })
 };
 
 exports.plusTotal = function (req, res, next) {
-    var user_id = req.body.user_id
-    var total = req.total + 1
+    var user_id = req.body.user_id;
+    var total = req.total + 1;
     Point.findOneAndUpdate({ user_id: user_id }, { $set: { total: total } }, { new: true }, function (err, datas) {
         if (err) {
             return res.status(400).send({
@@ -182,7 +182,7 @@ exports.plusTotal = function (req, res, next) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            req.result = datas
+            req.result = datas;
             // console.log(datas)
             next();
         }

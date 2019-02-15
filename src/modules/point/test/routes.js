@@ -344,7 +344,7 @@ describe('Point CRUD routes tests', function () {
                             return done(err);
                         }
                         var resp = res.body;
-                        console.log(resp)
+                        // console.log(resp)
                         assert.equal(resp.data.user_id, u2.user_id)
                         assert.equal(resp.data.total, u2.total + 1)
                         assert.equal(resp.data.used, u2.used)
