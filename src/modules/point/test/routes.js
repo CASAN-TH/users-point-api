@@ -288,7 +288,8 @@ describe('Point CRUD routes tests', function () {
                     return done(err);
                 }
                 var id = {
-                    user_id: u2.user_id
+                    user_id: u2.user_id,
+                    bonus: 5
                 }
                 request(app)
                     .post('/api/points-add-used')
@@ -301,7 +302,7 @@ describe('Point CRUD routes tests', function () {
                         var resp = res.body;
                         // console.log(resp)
                         assert.equal(resp.data.user_id, u2.user_id)
-                        assert.equal(resp.data.used, user2.used + 1)
+                        assert.equal(resp.data.used, user2.used + 1 + id.bonus)
                         assert.equal(resp.data.total, user2.total)
                         done();
                     });
@@ -336,7 +337,7 @@ describe('Point CRUD routes tests', function () {
                     user_id: u2.user_id
                 }
                 request(app)
-                    .post('/api/points-add-Total')
+                    .post('/api/points-add-total')
                     .send(id)
                     .expect(200)
                     .end((err, res) => {

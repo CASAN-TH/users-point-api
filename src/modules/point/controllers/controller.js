@@ -142,7 +142,7 @@ exports.findUsedById = function (req, res, next) {
 
 exports.plusUsed = function (req, res, next) {
     var user_id = req.body.user_id;
-    var used = req.used + 1;
+    var used = req.used + 1 + req.body.bonus;
     Point.findOneAndUpdate({ user_id: user_id }, { $set: { used: used } }, { new: true }, function (err, datas) {
         if (err) {
             return res.status(400).send({
