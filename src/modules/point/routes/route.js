@@ -19,10 +19,17 @@ module.exports = function (app) {
             controller.returnData
         )
 
-    app.route('/api/points-remove-used')
+    app.route('/api/points-add-used')
         .post(
             controller.findUsedById,
-            controller.minusUsed,
+            controller.plusUsed,
+            controller.returnData
+        )
+
+    app.route('/api/points-add-Total')
+        .post(
+            controller.findTotalById,
+            controller.plusTotal,
             controller.returnData
         )
 
