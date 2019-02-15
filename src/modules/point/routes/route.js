@@ -19,5 +19,12 @@ module.exports = function (app) {
             controller.returnData
         )
 
+    app.route('/api/points-remove-used')
+        .post(
+            controller.findUsedById,
+            controller.minusUsed,
+            controller.returnData
+        )
+
     app.param('pointId', controller.getByID);
 }

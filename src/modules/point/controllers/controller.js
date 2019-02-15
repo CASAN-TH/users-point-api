@@ -105,7 +105,7 @@ exports.delete = function (req, res) {
 
 exports.findpointByID = function (req, res, next) {
     var user_id = req.body.user_id
-    Point.find({user_id: user_id},function (err, datas) {
+    Point.find({ user_id: user_id }, function (err, datas) {
         if (err) {
             return res.status(400).send({
                 status: 400,
@@ -113,7 +113,7 @@ exports.findpointByID = function (req, res, next) {
             });
         } else {
             req.result = datas
-            next()
+            next();
         }
     })
 };
@@ -121,6 +121,38 @@ exports.findpointByID = function (req, res, next) {
 exports.returnData = function (req, res) {
     res.jsonp({
         status: 200,
-        data: req.result
+        data: req.result ? req.result : 'data can pass'
     });
-}
+};
+
+exports.findUsedById = function (req, res, next) {
+    var user_id = req.body.user_id
+    Point.find({ user_id: user_id }, function (err, datas) {
+        if (err) {
+            return res.status(400).send({
+                status: 400,
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            req.used = datas[0].used + 1
+            next();
+        }
+    })
+};
+
+exports.minusUsed = function (req, res, next) {
+    var user_id = req.body.user_id
+    var used = req.used
+    Point.findOneAndUpdate({ user_id: user_id }, { $set: { used: used } }, { new: true }, function (err, datas) {
+        if (err) {
+            return res.status(400).send({
+                status: 400,
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            req.result = datas
+            // console.log(datas)
+            next();
+        }
+    })
+};
